@@ -54,7 +54,11 @@
     </div>
   </div>
 </body>
-
+<style>
+  .error {
+    background-color: red;
+  }
+</style>
 <script>
 
   const nameInput = document.querySelector('.add-form-name');
@@ -65,6 +69,18 @@
   addButton.addEventListener('click', () => {
     const name = nameInput.value;
     const text = textInput.value;
+    nameInput.classList.remove("error");
+    textInput.classList.remove("error");
+
+    if (name === "") {
+      nameInput.classList.add("error");
+      return;
+    }
+
+    if (text === "") {
+      textInput.classList.add("error");
+      return;
+    }
 
     const newComment = `
         <li class="comment">
