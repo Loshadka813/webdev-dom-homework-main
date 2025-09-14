@@ -54,9 +54,59 @@
     </div>
   </div>
 </body>
-
+<style>
+  .error {
+    background-color: red;
+  }
+</style>
 <script>
 
+  const nameInput = document.querySelector('.add-form-name');
+  const textInput = document.querySelector('.add-form-text');
+  const addButton = document.querySelector('.add-form-button');
+  const commentsList = document.querySelector('.comments');
+
+  addButton.addEventListener('click', () => {
+    const name = nameInput.value;
+    const text = textInput.value;
+    nameInput.classList.remove("error");
+    textInput.classList.remove("error");
+
+    if (name === "") {
+      nameInput.classList.add("error");
+      return;
+    }
+
+    if (text === "") {
+      textInput.classList.add("error");
+      return;
+    }
+
+    const newComment = `
+        <li class="comment">
+          <div class="comment-header">
+            <div>${name}</div>
+            <div>${new Date().toLocaleString()}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${text}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">0</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>
+      `;
+
+    commentsList.innerHTML += newComment;
+
+    nameInput.value = '';
+    textInput.value = '';
+  });
 
 </script>
 
