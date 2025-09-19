@@ -84,16 +84,32 @@
   const textInput = document.querySelector('.add-form-text');
   const addButton = document.querySelector('.add-form-button');
   const commentsList = document.querySelector('.comments');
+  let currentIndexToEdit = null;
+
+  const initAnswerComment = () => {
+    commentsElements = document.querySelectorAll("li");
+
+    for (const commentEl of commentsElements) {
+      const index = commentEl.dataset.index;
+
+      commentEl.addEventListener("click", () => {
+        nameInput.value = comments[index].author;
+        textInput.value = `${comments[index].text}\n\nОтвет: `;
+        currentIndexToEdit = index;
+      })
+    }
+  }
+
 
   function renderComments() {
     const commentsHtml = comments.map((comment, index) => {
-      return `<li class="comment">
+      return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
-                  <div>${comment.author}</div>
+                  <div data-index="${index}">${comment.author}</div>
                   <div>${comment.date || new Date().toLocaleString()}</div>
                 </div>
                 <div class="comment-body">
-                  <div class="comment-text">
+                  <div class="comment-text" data-index="${index}">
                     ${comment.text}
                   </div>
                 </div>
@@ -108,11 +124,13 @@
 
     commentsList.innerHTML = commentsHtml;
     initLikeComments();
+
+    initAnswerComment();
   };
 
   addButton.addEventListener('click', () => {
-    const name = nameInput.value.trim();
-    const text = textInput.value.trim();
+    const name = nameInput.value.trim().replaceAll("<", "&lt").replaceAll(">", "&gt");
+    const text = textInput.value.trim().replaceAll("<", "&lt").replaceAll(">", "&gt");
 
     nameInput.classList.remove("error");
     textInput.classList.remove("error");
@@ -129,13 +147,18 @@
 
     const newDate = new Date().toLocaleString();
 
-    comments.push({
-      author: name,
-      date: newDate,
-      text: text,
-      likesCount: 0,
-      likes: false
-    });
+    if (currentIndexToEdit == null) {
+      comments.push({
+        author: name,
+        date: newDate,
+        text: text,
+        likesCount: 0,
+        likes: false
+      });
+    } else {
+      comments[currentIndexToEdit].text = text;
+      currentIndexToEdit = null;
+    }
 
     nameInput.value = '';
     textInput.value = '';
@@ -151,7 +174,8 @@
         likeElement.classList.add('-active-like');
       }
 
-      likeElement.addEventListener('click', () => {
+      likeElement.addEventListener('click', (event) => {
+        event.stopPropagation();
         const index = likeElement.dataset.index;
 
         if (comments[index].likes) {
@@ -170,6 +194,7 @@
   };
 
   renderComments();
+
 </script>
 
 </html>
