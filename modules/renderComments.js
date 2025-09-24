@@ -1,12 +1,13 @@
 import { comments } from "./coments.js";
-import { initLikeComments } from "./initLike.js"; 
-import { initAnswerComment } from "./answer.js"; 
+import { initLikeComments } from "./initLike.js";
+import { initAnswerComment } from "./answer.js";
 
-const commentsList = document.querySelector('.comments');
+const commentsList = document.querySelector(".comments");
 
 export function renderComments() {
-    const commentsHtml = comments.map((comment, index) => {
-        return `<li class="comment" data-index="${index}">
+  const commentsHtml = comments
+    .map((comment, index) => {
+      return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
                   <div data-index="${index}">${comment.author}</div>
                   <div>${comment.date || new Date().toLocaleString()}</div>
@@ -23,10 +24,11 @@ export function renderComments() {
                   </div>
                 </div>
               </li>`;
-    }).join('');
+    })
+    .join("");
 
-    commentsList.innerHTML = commentsHtml;
-    initLikeComments();
+  commentsList.innerHTML = commentsHtml;
+  initLikeComments();
 
-    initAnswerComment();
-};
+  initAnswerComment();
+}
