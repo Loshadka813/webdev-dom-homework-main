@@ -29,8 +29,6 @@ export const initButtonComment = () => {
       return;
     }
 
-    // const newDate = new Date().toLocaleString();
-
     const newComments = { text, name };
 
     fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
@@ -42,16 +40,18 @@ export const initButtonComment = () => {
       })
       .then((data) => {
         updateComments(data.comments);
-        renderComments();
       });
 
-    // comments.push({
-    //   author: name,
-    //   date: newDate,
-    //   text: text,
-    //   likes: 0,
-    //   isLiked: false,
-    // });
+    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        updateComments(data.comments);
+        renderComments();
+      });
 
     nameInput.value = "";
     textInput.value = "";
