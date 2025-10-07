@@ -14,12 +14,12 @@ export const initLikeComments = () => {
       const index = likeElement.dataset.index;
 
       if (comments[index].likes) {
-        comments[index].likesCount--;
-        comments[index].likes = false;
+        comments[index].likes--;
+        comments[index].isLiked = false;
         likeElement.classList.remove("-active-like");
       } else {
-        comments[index].likesCount++;
-        comments[index].likes = true;
+        comments[index].likes++;
+        comments[index].isLiked = true;
         likeElement.classList.add("-active-like");
       }
 

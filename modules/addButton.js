@@ -1,5 +1,5 @@
 import { renderComments } from "./renderComments.js";
-import { comments } from "./coments.js";
+import { updateComments } from "./coments.js";
 
 const nameInput = document.querySelector(".add-form-name");
 const textInput = document.querySelector(".add-form-text");
@@ -29,19 +29,33 @@ export const initButtonComment = () => {
       return;
     }
 
-    const newDate = new Date().toLocaleString();
+    const newComments = { text, name };
 
-    comments.push({
-      author: name,
-      date: newDate,
-      text: text,
-      likesCount: 0,
-      likes: false,
-    });
+    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
+      method: "POST",
+      body: JSON.stringify(newComments),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        updateComments(data.comments);
+      });
+
+    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        updateComments(data.comments);
+        renderComments();
+      });
 
     nameInput.value = "";
     textInput.value = "";
 
-    renderComments();
+    // renderComments();
   });
 };

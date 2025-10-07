@@ -9,7 +9,7 @@ export const initAnswerComment = () => {
     const index = commentEl.dataset.index;
 
     commentEl.addEventListener("click", () => {
-      textInput.value = `${comments[index].author}:  ${comments[index].text}\n\nОтвет: `;
+      textInput.value = `${comments[index].author.name}:  ${comments[index].text}\n\nОтвет: `;
     });
   }
 };
