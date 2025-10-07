@@ -1,4 +1,5 @@
 import { renderComments } from "./renderComments.js";
+import { postComments } from "./api.js";
 import { updateComments } from "./coments.js";
 
 const nameInput = document.querySelector(".add-form-name");
@@ -29,33 +30,16 @@ export const initButtonComment = () => {
       return;
     }
 
-    const newComments = { text, name };
+    addButton.disabled = true;
+    addButton.textContent = "Загрузка..";
 
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "POST",
-      body: JSON.stringify(newComments),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        updateComments(data.comments);
-      });
-
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        updateComments(data.comments);
-        renderComments();
-      });
-
-    nameInput.value = "";
-    textInput.value = "";
-
-    // renderComments();
+    postComments(text, name).then((data) => {
+      updateComments(data);
+      renderComments();
+      addButton.disabled = false;
+      addButton.textContent = "Написать";
+      nameInput.value = "";
+      textInput.value = "";
+    });
   });
 };
