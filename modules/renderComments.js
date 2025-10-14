@@ -1,7 +1,6 @@
 import { comments } from "./coments.js";
 import { initLikeComments } from "./initLike.js";
 import { initAnswerComment } from "./answer.js";
-// import { updateComments } from "./coments.js";
 
 const commentsList = document.querySelector(".comments");
 

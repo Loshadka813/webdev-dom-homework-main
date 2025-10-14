@@ -22,24 +22,40 @@ export const initButtonComment = () => {
 
     if (name === "") {
       nameInput.classList.add("error");
+      setTimeout(() => {
+        nameInput.classList.remove("error");
+      }, 2000);
       return;
     }
 
     if (text === "") {
       textInput.classList.add("error");
+      setTimeout(() => {
+        textInput.classList.remove("error");
+      }, 2000);
       return;
     }
 
     addButton.disabled = true;
     addButton.textContent = "Загрузка..";
 
-    postComments(text, name).then((data) => {
-      updateComments(data);
-      renderComments();
-      addButton.disabled = false;
-      addButton.textContent = "Написать";
-      nameInput.value = "";
-      textInput.value = "";
-    });
+    postComments(text, name)
+      .then((data) => {
+        updateComments(data);
+        renderComments();
+        nameInput.value = "";
+        textInput.value = "";
+      })
+      .catch((error) => {
+        if (error.message === "Failed to fetch") {
+          alert("Нет интернет-соединения");
+        } else {
+          alert(error.message);
+        }
+      })
+      .finally(() => {
+        addButton.disabled = false;
+        addButton.textContent = "Написать";
+      });
   });
 };
