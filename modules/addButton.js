@@ -1,4 +1,5 @@
 import { renderComments } from "./renderComments.js";
+import { postComments } from "./api.js";
 import { updateComments } from "./coments.js";
 
 const nameInput = document.querySelector(".add-form-name");
@@ -21,41 +22,40 @@ export const initButtonComment = () => {
 
     if (name === "") {
       nameInput.classList.add("error");
+      setTimeout(() => {
+        nameInput.classList.remove("error");
+      }, 2000);
       return;
     }
 
     if (text === "") {
       textInput.classList.add("error");
+      setTimeout(() => {
+        textInput.classList.remove("error");
+      }, 2000);
       return;
     }
 
-    const newComments = { text, name };
+    addButton.disabled = true;
+    addButton.textContent = "Загрузка..";
 
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "POST",
-      body: JSON.stringify(newComments),
-    })
-      .then((response) => {
-        return response.json();
-      })
+    postComments(text, name)
       .then((data) => {
-        updateComments(data.comments);
-      });
-
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        updateComments(data.comments);
+        updateComments(data);
         renderComments();
+        nameInput.value = "";
+        textInput.value = "";
+      })
+      .catch((error) => {
+        if (error.message === "Failed to fetch") {
+          alert("Нет интернет-соединения");
+        } else {
+          alert(error.message);
+        }
+      })
+      .finally(() => {
+        addButton.disabled = false;
+        addButton.textContent = "Написать";
       });
-
-    nameInput.value = "";
-    textInput.value = "";
-
-    // renderComments();
   });
 };
