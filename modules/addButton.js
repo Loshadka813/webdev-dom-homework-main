@@ -46,13 +46,13 @@ export const initButtonComment = () => {
         nameInput.value = "";
         textInput.value = "";
       })
-      .catch((error) => {
-        if (error.message === "Failed to fetch") {
-          alert("Нет интернет-соединения");
-        } else {
-          alert(error.message);
-        }
-      })
+      // .catch((error) => {
+      //   if (error.message === "Failed to fetch") {
+      //     alert("Нет интернет-соединения");
+      //   } else {
+      //     alert(error.message);
+      //   }
+      // })
       .finally(() => {
         addButton.disabled = false;
         addButton.textContent = "Написать";

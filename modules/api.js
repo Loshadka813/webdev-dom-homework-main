@@ -3,7 +3,15 @@ export const fetchComments = () => {
     method: "GET",
   })
     .then((response) => {
-      return response.json();
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        if (response.status === 500) {
+          throw new Error("Упс.. Сервер упал");
+        }
+
+        throw new Error("Что-то пошло не так");
+      }
     })
     .then((responseData) => {
       const appComments = responseData.comments.map((comment) => {
@@ -41,8 +49,7 @@ export const postComments = (text, name) => {
             "Вы допустили ошибку. Возможно имя или тест короче 3 символов",
           );
         }
-
-        // throw new Error("Что-то пошло не так");
+        throw new Error("Что-то пошло не так");
       }
     })
     .then(() => {

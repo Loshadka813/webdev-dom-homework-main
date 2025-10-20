@@ -5,9 +5,13 @@ import { updateComments } from "./modules/coments.js";
 
 document.querySelector(".comments").innerHTML = "Загрузка данных...";
 
-fetchComments().then((data) => {
-  updateComments(data);
-  renderComments();
-});
+fetchComments()
+  .then((data) => {
+    updateComments(data);
+    renderComments();
+  })
+  .catch((error) => {
+    alert(error.message);
+  });
 
 initButtonComment(renderComments);
