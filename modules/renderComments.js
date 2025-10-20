@@ -1,7 +1,6 @@
 import { comments } from "./coments.js";
 import { initLikeComments } from "./initLike.js";
 import { initAnswerComment } from "./answer.js";
-// import { updateComments } from "./coments.js";
 
 const commentsList = document.querySelector(".comments");
 
@@ -11,8 +10,14 @@ export function renderComments() {
     .map((comment, index) => {
       return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
-                  <div data-index="${index}">${comment.author.name}</div>
-                  <div>${comment.date || new Date().toLocaleString()}</div>
+                  <div data-index="${index}">${comment.author}</div>
+                  <div>${new Date(comment.date).toLocaleString("ru-RU", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}</div>
                 </div>
                 <div class="comment-body">
                   <div class="comment-text" data-index="${index}">
