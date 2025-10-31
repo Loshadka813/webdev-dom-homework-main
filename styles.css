@@ -99,19 +99,22 @@ body {
   }
 
   .add-form-name,
-  .add-form-text {
+  .add-form-text,
+  .input {
     font-size: 16px;
     font-family: Helvetica;
     border-radius: 8px;
     border: none;
   }
 
-  .add-form-name {
+  .add-form-name,
+  .input {
     width: 300px;
     padding: 11px 22px;
   }
 
-  .add-form-text {
+  .add-form-text,
+  .input {
     margin-top: 12px;
     padding: 22px;
     resize: none;
