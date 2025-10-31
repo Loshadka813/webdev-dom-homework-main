@@ -1,22 +1,22 @@
-import { comments } from "./coments.js";
-import { initLikeComments } from "./initLike.js";
-import { initAnswerComment } from "./answer.js";
+import { comments } from './coments.js'
+import { initLikeComments } from './initLike.js'
+import { initAnswerComment } from './answer.js'
 
-const commentsList = document.querySelector(".comments");
+const commentsList = document.querySelector('.comments')
 
 export function renderComments() {
-  const likesCount = 0;
-  const commentsHtml = comments
-    .map((comment, index) => {
-      return `<li class="comment" data-index="${index}">
+    const likesCount = 0
+    const commentsHtml = comments
+        .map((comment, index) => {
+            return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
                   <div data-index="${index}">${comment.author}</div>
-                  <div>${new Date(comment.date).toLocaleString("ru-RU", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
+                  <div>${new Date(comment.date).toLocaleString('ru-RU', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
                   })}</div>
                 </div>
                 <div class="comment-body">
@@ -30,12 +30,12 @@ export function renderComments() {
                     <button class="like-button" data-index="${index}"></button>
                   </div>
                 </div>
-              </li>`;
-    })
-    .join("");
+              </li>`
+        })
+        .join('')
 
-  commentsList.innerHTML = commentsHtml;
-  initLikeComments();
+    commentsList.innerHTML = commentsHtml
+    initLikeComments()
 
-  initAnswerComment();
+    initAnswerComment()
 }
