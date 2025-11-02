@@ -1,7 +1,7 @@
 export const renderRegistration = () => {
-    const app = document.getElementById('app')
+  const app = document.getElementById("app");
 
-    app.innerHTML = `
+  app.innerHTML = `
     <div class="form">
       <h3 class="form-title">Регистрация</h3>
       <div class="form-row">
@@ -11,5 +11,5 @@ export const renderRegistration = () => {
         <button class="add-form-button" id="login-button">Зарегистрироваться</button>
       </div>
     </div>
-    `
-}
+    `;
+};
