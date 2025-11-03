@@ -1,8 +1,6 @@
 import { renderComments } from "./renderComments.js";
 import { comments } from "./comments.js";
 
-const commentInput = document.querySelector(".add-form-text");
-
 export const initLikeComments = () => {
   for (const likeElement of document.querySelectorAll(".like-button")) {
     const index = likeElement.dataset.index;
@@ -19,10 +17,12 @@ export const initLikeComments = () => {
         comments[index].quantityLikes--;
         comments[index].likes = false;
         likeElement.classList.remove("-active-like");
+        console.log(comments[index].quantityLikes);
       } else {
         comments[index].quantityLikes++;
         comments[index].likes = true;
         likeElement.classList.add("-active-like");
+        console.log(comments[index].quantityLikes);
       }
 
       renderComments();
@@ -41,6 +41,9 @@ export const initCommentsListener = () => {
       const commentName = commentElement.querySelector(
         ".comment-header div:first-child",
       ).innerText;
+
+      const commentInput = document.querySelector(".add-form-text");
+      if (!commentInput) return;
 
       commentInput.value = `Ответ пользователю ${commentName}: ${commentText} > `;
     });

@@ -1,8 +1,13 @@
-let token = "";
 const authToken = "https://wedev-api.sky.pro/api/user";
 
+export let token = "";
 export const updateToken = (newToken) => {
   token = newToken;
+};
+
+export let name = "";
+export const updateName = (newName) => {
+  name = newName;
 };
 
 export const fetchComments = () => {
