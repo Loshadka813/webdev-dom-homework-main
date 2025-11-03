@@ -1,8 +1,9 @@
 import { comments } from "./comments.js";
 import { initButtonComment } from "./addButton.js";
-import { initLikeComments, initCommentsListener } from "./initListeners.js";
+import { initLikeComments } from "./initListeners.js";
 import { renderLogin } from "./renderLogin.js";
 import { token, name } from "./api.js";
+import { initAnswerComment } from "./answer.js";
 
 export function renderComments() {
   const likesCount = 0;
@@ -68,7 +69,8 @@ export function renderComments() {
   if (token) {
     initButtonComment();
     initLikeComments();
-    initCommentsListener();
+    // initCommentsListener();
+    initAnswerComment();
   } else {
     document.querySelector(".link-login").addEventListener("click", () => {
       renderLogin();

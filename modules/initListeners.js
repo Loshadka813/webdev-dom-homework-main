@@ -14,38 +14,16 @@ export const initLikeComments = () => {
       const index = likeElement.dataset.index;
 
       if (comments[index].likes) {
-        comments[index].quantityLikes--;
+        comments[index].likesCount--;
         comments[index].likes = false;
         likeElement.classList.remove("-active-like");
-        console.log(comments[index].quantityLikes);
       } else {
-        comments[index].quantityLikes++;
+        comments[index].likesCount++;
         comments[index].likes = true;
         likeElement.classList.add("-active-like");
-        console.log(comments[index].quantityLikes);
       }
 
       renderComments();
-    });
-  }
-};
-
-export const initCommentsListener = () => {
-  const commentsElements = document.querySelectorAll(".comment");
-
-  for (const commentElement of commentsElements) {
-    commentElement.addEventListener("click", (event) => {
-      if (event.target.closest(".like-button")) return;
-      const commentText =
-        commentElement.querySelector(".comment-text").innerText;
-      const commentName = commentElement.querySelector(
-        ".comment-header div:first-child",
-      ).innerText;
-
-      const commentInput = document.querySelector(".add-form-text");
-      if (!commentInput) return;
-
-      commentInput.value = `Ответ пользователю ${commentName}: ${commentText} > `;
     });
   }
 };
