@@ -34,8 +34,8 @@ export const fetchComments = () => {
           author: comment.author.name,
           date: comment.date,
           text: comment.text,
-          likesCount: comment.likesCount,
-          likes: false,
+          likes: comment.likes,
+          isLiked: false,
         };
       });
 
