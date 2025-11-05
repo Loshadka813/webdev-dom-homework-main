@@ -1,6 +1,7 @@
 import { fetchComments, login, updateToken, updateName } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
+import { renderRegistration } from "./renderRegistration.js";
 
 export const renderLogin = () => {
   const container = document.querySelector(".container");
@@ -46,5 +47,11 @@ export const renderLogin = () => {
           renderComments();
         });
       });
+  });
+
+  const buttonReg = document.getElementById("registration-button");
+
+  buttonReg.addEventListener("click", () => {
+    renderRegistration();
   });
 };

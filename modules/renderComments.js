@@ -69,7 +69,6 @@ export function renderComments() {
   if (token) {
     initButtonComment();
     initLikeComments();
-    // initCommentsListener();
     initAnswerComment();
   } else {
     document.querySelector(".link-login").addEventListener("click", () => {

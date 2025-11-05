@@ -3,7 +3,7 @@ import { renderComments } from "./modules/renderComments.js";
 import { fetchComments } from "./modules/api.js";
 import { updateComments } from "./modules/comments.js";
 
-document.querySelector(".comments").innerHTML = "Загрузка данных...";
+document.querySelector(".container").innerHTML = "Загрузка данных...";
 
 fetchComments()
   .then((data) => {
