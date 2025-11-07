@@ -35,9 +35,34 @@ export const renderLogin = () => {
   const passwordElement = document.getElementById("password-input");
 
   buttonLogin.addEventListener("click", () => {
+    if (loginElement.value.trim() === "") {
+      loginElement.classList.add("error");
+      setTimeout(() => {
+        loginElement.classList.remove("error");
+      }, 2000);
+      return;
+    }
+
+    if (passwordElement.value.trim() === "") {
+      passwordElement.classList.add("error");
+      setTimeout(() => {
+        passwordElement.classList.remove("error");
+      }, 2000);
+      return;
+    }
+
     login(loginElement.value, passwordElement.value)
       .then((response) => {
-        return response.json();
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          if (response.status === 400) {
+            throw new Error("Неправильный логин или пароль");
+          }
+          throw new Error(
+            "Неверно введены данные. Проверьте еще раз и попробуйте снова",
+          );
+        }
       })
       .then((data) => {
         updateToken(data.user.token);

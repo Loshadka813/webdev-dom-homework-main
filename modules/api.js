@@ -81,24 +81,6 @@ export const login = (login, password) => {
       password,
     }),
   });
-  // .then((response) => {
-  //     if (response.status === 201) {
-  //         return response.json()
-  //     } else {
-  //         if (response.status === 500) {
-  //             throw new Error('Упс.. Сервер упал')
-  //         }
-  //         if (response.status === 400) {
-  //             throw new Error(
-  //                 'Вы допустили ошибку. Возможно имя или тест короче 3 символов',
-  //             )
-  //         }
-  //         throw new Error('Что-то пошло не так')
-  //     }
-  // })
-  // .then(() => {
-  //     return fetchComments()
-  // })
 };
 
 export const registration = (login, name, password) => {
@@ -110,22 +92,4 @@ export const registration = (login, name, password) => {
       password,
     }),
   });
-  // .then((response) => {
-  //   if (response.status === 201) {
-  //     return response.json();
-  //   } else {
-  //     if (response.status === 500) {
-  //       throw new Error("Упс.. Сервер упал");
-  //     }
-  //     if (response.status === 400) {
-  //       throw new Error(
-  //         "Вы допустили ошибку. Возможно имя или тест короче 3 символов",
-  //       );
-  //     }
-  //     throw new Error("Что-то пошло не так");
-  //   }
-  // })
-  // .then(() => {
-  //   return fetchComments();
-  // });
 };

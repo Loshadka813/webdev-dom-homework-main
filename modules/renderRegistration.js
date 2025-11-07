@@ -25,9 +25,57 @@ export const renderRegistration = () => {
   const nameElement = document.getElementById("name-input");
 
   buttonRegistration.addEventListener("click", () => {
+    if (
+      loginElement.value.trim() === "" ||
+      loginElement.value.trim().length < 3
+    ) {
+      alert("Логин должен быть длиннее 3 символов и не должен быть пустым");
+
+      loginElement.classList.add("error");
+      setTimeout(() => {
+        loginElement.classList.remove("error");
+      }, 2000);
+      return;
+    }
+
+    if (
+      nameElement.value.trim() === "" ||
+      nameElement.value.trim().length < 3
+    ) {
+      alert("Имя должен быть длиннее 3 символов и не должен быть пустым");
+
+      nameElement.classList.add("error");
+      setTimeout(() => {
+        nameElement.classList.remove("error");
+      }, 2000);
+      return;
+    }
+
+    if (
+      passwordElement.value.trim() === "" ||
+      passwordElement.value.trim().length < 3
+    ) {
+      alert("Пароль должен быть длиннее 3 символов и не должен быть пустым");
+
+      passwordElement.classList.add("error");
+      setTimeout(() => {
+        passwordElement.classList.remove("error");
+      }, 2000);
+      return;
+    }
+
     registration(loginElement.value, nameElement.value, passwordElement.value)
       .then((response) => {
-        return response.json();
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          if (response.status === 400) {
+            throw new Error("Пользователь с таким логином уже существует");
+          }
+          throw new Error(
+            "Неверно введены данные. Проверьте еще раз и попробуйте снова",
+          );
+        }
       })
       .then((data) => {
         updateToken(data.user.token);

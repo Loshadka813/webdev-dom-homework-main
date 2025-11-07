@@ -13,5 +13,3 @@ fetchComments()
   .catch((error) => {
     alert(error.message);
   });
-
-// initButtonComment(renderComments)
