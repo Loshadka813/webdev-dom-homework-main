@@ -1,61 +1,39 @@
 import { renderComments } from "./renderComments.js";
-import { updateComments } from "./coments.js";
-
-const nameInput = document.querySelector(".add-form-name");
-const textInput = document.querySelector(".add-form-text");
-const addButton = document.querySelector(".add-form-button");
+import { postComments, name } from "./api.js";
+import { updateComments } from "./comments.js";
 
 export const initButtonComment = () => {
+  const addButton = document.querySelector(".add-form-button");
   addButton.addEventListener("click", () => {
-    const name = nameInput.value
-      .trim()
-      .replaceAll("<", "&lt")
-      .replaceAll(">", "&gt");
+    const textInput = document.querySelector(".add-form-text");
     const text = textInput.value
       .trim()
       .replaceAll("<", "&lt")
       .replaceAll(">", "&gt");
 
-    nameInput.classList.remove("error");
     textInput.classList.remove("error");
-
-    if (name === "") {
-      nameInput.classList.add("error");
-      return;
-    }
 
     if (text === "") {
       textInput.classList.add("error");
+      setTimeout(() => {
+        textInput.classList.remove("error");
+      }, 2000);
       return;
     }
 
-    const newComments = { text, name };
+    addButton.disabled = true;
+    addButton.textContent = "Загрузка..";
 
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "POST",
-      body: JSON.stringify(newComments),
-    })
-      .then((response) => {
-        return response.json();
-      })
+    postComments(text, name)
       .then((data) => {
-        updateComments(data.comments);
-      });
-
-    fetch("https://wedev-api.sky.pro/api/v1/marina-lebakina/comments", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        updateComments(data.comments);
+        updateComments(data);
         renderComments();
+        textInput.value = "";
+      })
+
+      .finally(() => {
+        addButton.disabled = false;
+        addButton.textContent = "Написать";
       });
-
-    nameInput.value = "";
-    textInput.value = "";
-
-    // renderComments();
   });
 };

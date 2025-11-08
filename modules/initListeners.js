@@ -1,5 +1,5 @@
 import { renderComments } from "./renderComments.js";
-import { comments } from "./coments.js";
+import { comments } from "./comments.js";
 
 export const initLikeComments = () => {
   for (const likeElement of document.querySelectorAll(".like-button")) {

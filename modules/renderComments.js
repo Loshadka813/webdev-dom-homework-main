@@ -1,18 +1,25 @@
-import { comments } from "./coments.js";
-import { initLikeComments } from "./initLike.js";
+import { comments } from "./comments.js";
+import { initButtonComment } from "./addButton.js";
+import { initLikeComments } from "./initListeners.js";
+import { renderLogin } from "./renderLogin.js";
+import { token, name } from "./api.js";
 import { initAnswerComment } from "./answer.js";
-// import { updateComments } from "./coments.js";
-
-const commentsList = document.querySelector(".comments");
 
 export function renderComments() {
   const likesCount = 0;
+  const container = document.querySelector(".container");
   const commentsHtml = comments
     .map((comment, index) => {
       return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
-                  <div data-index="${index}">${comment.author.name}</div>
-                  <div>${comment.date || new Date().toLocaleString()}</div>
+                  <div data-index="${index}">${comment.author}</div>
+                  <div>${new Date(comment.date).toLocaleString("ru-RU", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}</div>
                 </div>
                 <div class="comment-body">
                   <div class="comment-text" data-index="${index}">
@@ -29,8 +36,43 @@ export function renderComments() {
     })
     .join("");
 
-  commentsList.innerHTML = commentsHtml;
-  initLikeComments();
+  const addCommetnsHtml = `
+            <div class="add-form">
+                <input
+                    type="text"
+                    class="add-form-name"
+                    placeholder="Введите ваше имя"
+                    readonly
+                    value="${name}"
+                    id="name-input"
+                />
+                <textarea
+                    type="textarea"
+                    class="add-form-text"
+                    placeholder="Введите ваш коментарий"
+                    rows="4"
+                    id="text-input"
+                ></textarea>
+                <div class="add-form-row">
+                    <button class="add-form-button">Написать</button>
+                </div>
+            </div>
+            <div class="form-loading" style="display: none; margin-top: 20px">Комментарий добавляется...</div>`;
 
-  initAnswerComment();
+  const linkToLoginText = `<p><span class="link-login" style="text-decoration: underline; cursor: pointer;">Войдите</span>, чтобы отправить комментарий, </p>`;
+
+  const basicHtml = `<ul class="comments">${commentsHtml}</ul>
+        ${token ? addCommetnsHtml : linkToLoginText}`;
+
+  container.innerHTML = basicHtml;
+
+  if (token) {
+    initButtonComment();
+    initLikeComments();
+    initAnswerComment();
+  } else {
+    document.querySelector(".link-login").addEventListener("click", () => {
+      renderLogin();
+    });
+  }
 }
