@@ -71,6 +71,9 @@ export const renderLogin = () => {
           updateComments(data);
           renderComments();
         });
+      })
+      .catch((error) => {
+        alert(error.message);
       });
   });
 

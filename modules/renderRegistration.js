@@ -65,18 +65,6 @@ export const renderRegistration = () => {
     }
 
     registration(loginElement.value, nameElement.value, passwordElement.value)
-      .then((response) => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          if (response.status === 400) {
-            throw new Error("Пользователь с таким логином уже существует");
-          }
-          throw new Error(
-            "Неверно введены данные. Проверьте еще раз и попробуйте снова",
-          );
-        }
-      })
       .then((data) => {
         updateToken(data.user.token);
         updateName(data.user.name);
@@ -84,6 +72,9 @@ export const renderRegistration = () => {
           updateComments(data);
           renderComments();
         });
+      })
+      .catch((error) => {
+        alert(error.message);
       });
   });
 };
