@@ -91,5 +91,16 @@ export const registration = (login, name, password) => {
       name,
       password,
     }),
+  }).then((response) => {
+    if (response.status === 201) {
+      return response.json();
+    } else {
+      if (response.status === 400) {
+        throw new Error("Пользователь с таким логином уже существует");
+      }
+      throw new Error(
+        "Неверно введены данные. Проверьте еще раз и попробуйте снова",
+      );
+    }
   });
 };
