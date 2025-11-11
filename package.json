@@ -4,7 +4,7 @@
   "description": "https://glebkaf.github.io/webdev-dom-homework/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Loshadka813/webdev-dom-homework-main#readme",
   "dependencies": {
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
