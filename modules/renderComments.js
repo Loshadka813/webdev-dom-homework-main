@@ -12,7 +12,7 @@ export function renderComments() {
     .map((comment, index) => {
       return `<li class="comment" data-index="${index}">
                 <div class="comment-header">
-                  <div data-index="${index}">${comment.author}</div>
+                  <div>${comment.author}</div>
                   <div>${new Date(comment.date).toLocaleString("ru-RU", {
                     year: "numeric",
                     month: "2-digit",
@@ -22,14 +22,14 @@ export function renderComments() {
                   })}</div>
                 </div>
                 <div class="comment-body">
-                  <div class="comment-text" data-index="${index}">
+                  <div class="comment-text">
                     ${comment.text}
                   </div>
                 </div>
                 <div class="comment-footer">
                   <div class="likes">
-                    <span class="likes-counter" data-index="${index}">${comment.likes || likesCount}</span>
-                    <button class="like-button" data-index="${index}"></button>
+                    <span class="likes-counter">${comment.likes || likesCount}</span>
+                    <button class="like-button"></button>
                   </div>
                 </div>
               </li>`;

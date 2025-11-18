@@ -3,9 +3,11 @@ import { comments } from "./comments.js";
 
 export const initLikeComments = () => {
   for (const likeElement of document.querySelectorAll(".like-button")) {
-    const index = likeElement.dataset.index;
 
-    if (comments[index].likes) {
+    likeElement.addEventListener("click", (event) => {
+      const index = event.target.closest("[data-index]").dataset.index;
+      
+      if (comments[index].likes) {
       likeElement.classList.add("-active-like");
     }
 
@@ -25,5 +27,7 @@ export const initLikeComments = () => {
 
       renderComments();
     });
+    })
+    // const index = likeElement.dataset.index;
   }
 };
